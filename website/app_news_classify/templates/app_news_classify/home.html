@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>巴哈姆特文章分析平台</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<div class="container">
+
+    <div class="row">
+
+        {% include 'navbar.html' %}
+
+        <div class="col-lg-12">
+            <h1>巴哈姆特文章分類</h1>
+            <p>使用深度學習進行文章分類</p>
+        </div>
+
+        <!--row .. col-lg-6 .. card -->
+        <div class="col-lg-6 mb-2">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="h6 text-uppercase mb-0">輸入一段文字，判讀文章的類別與機率</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="textarea_content">在這裡輸入文字...</label>
+                        <textarea class="form-control" id="textarea_content"
+                                                                        name="textarea_text" rows="6"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-primary" id="btn_cnn">判讀</button>
+                </div>
+            </div>
+        </div><!-- column -->
+
+        <!-- show result -->
+        <div class="col-lg-6 mb-5">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="h6 text-uppercase mb-0">判讀結果顯示</h3>
+                </div>
+                <div class="card-body">
+                    <!-- show result -->
+                    <ul id="show_proba"></ul>
+                </div>
+            </div>
+        </div><!-- column -->
+
+    </div>
+</div>
+
+</body>
+</html>
+
+<!-- jQuery.js-->
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script>
+
+    // default text
+    const news = "鍵盤滑鼠。"
+    $('#textarea_content').val(news);
+
+    var target_div = document.getElementById("show_proba");
+
+    //submit button event
+    $('#btn_cnn').on('click', function (e) {
+
+        call_ajax('btn_deep');
+
+    }); 
+
+    // function call_ajax()
+    var call_ajax = function (btn_source) {
+        //console.log(btn_source);
+        var input_text = $('#textarea_content').val();
+        //console.log(input_text);
+        target_div.innerHTML = '';
+        $.ajax({
+            type: "POST",
+            url: "api_get_news_cate/",
+            data: {
+                "input_text": input_text,
+                "btn_source": btn_source,
+            }, 
+            success: function (received) {
+
+                let data_cate = received['classifies'];
+                console.log(data_cate);
+                for(i=0; i< data_cate.label.length;i++){
+                    $('#show_proba').append("<li>【" + data_cate["label"][i] + "   =>   " + data_cate["proba"][i] + "】</li>");
+                    //target_div.innerHTML += "<li>" + data_cate["proba"] + "</li>";
+                } 
+            } //function
+        }); //ajax
+
+    } // call_ajax function
+
+</script>
