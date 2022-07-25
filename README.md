@@ -1,6 +1,6 @@
 # 資料爬蟲
 
-    選擇三個巴哈姆特前10大主題討論串進行評論爬蟲，在這邊使用手動HEADERS，因為巴哈姆特擁
+  選擇三個巴哈姆特前10大主題討論串進行評論爬蟲，在這邊使用手動HEADERS，因為巴哈姆特擁
 有反爬蟲的機制，需特別製作HEADERS才能獲取資料。
 
 ```py
@@ -11,7 +11,7 @@ HEADERS = { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit
 ```
 ## 獲取評論資料
 
-    在此我選擇擷取主題評論串第一頁的所有討論串，並獲取那個討論串內所有的評論。若該討論串內有47頁，則會爬取這47頁所有的評論內容。
+  在此我選擇擷取主題評論串第一頁的所有討論串，並獲取那個討論串內所有的評論。若該討論串內有47頁，則會爬取這47頁所有的評論內容。
 
 ```py
 def get_article_url_list(forum_url): 
@@ -58,15 +58,15 @@ def get_reply_info_list(url):
 ```
 
 ## 資料內容
-    我使用dataframe來存取資料，相關爬取的內容如下
+  我使用dataframe來存取資料，相關爬取的內容如下
 ![Github](https://github.com/willy199710/Python_Bahamut_Website_Crawl/blob/main/pic/pic1.JPG "爬蟲資料內容")
 
 ## 資料前處理
 
-    在這邊我使用CkipLab進行資料前處理，對評論內容進行分詞斷句(tokens)並計算字詞的頻繁出現次數(freq)，freq可呈現出最常出現的字詞為何
+  在這邊我使用CkipLab進行資料前處理，對評論內容進行分詞斷句(tokens)並計算字詞的頻繁出現次數(freq)，freq可呈現出最常出現的字詞為何
 ![Github](https://github.com/willy199710/Python_Bahamut_Website_Crawl/blob/main/pic/pic2.JPG "資料內容")
     
-    相關CkipLab程式碼如下所示:
+  相關CkipLab程式碼如下所示:
 ```py
 wd = os.getcwd()
 
