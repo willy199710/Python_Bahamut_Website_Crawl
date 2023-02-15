@@ -41,8 +41,6 @@ INSTALLED_APPS = [
     'app_top_person',
     'app_top_ner',
     'app_user_keyword',
-    'app_user_keyword_association',
-    'app_news_classify',
 ]
 
 MIDDLEWARE = [

@@ -4,3 +4,6 @@
     2. all_contents: 整段爬蟲下來的文字
     3. tokens: 使用CkipLab進行stop_word檢定後 Tokens 的字串
     4. freq: 單一主題的所有 Tokens 頻率計數
+
+
+    django-admin startapp app_top_keyword
